@@ -1,0 +1,80 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="page-header1">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-9">
+                <div class="page-header-title">
+                    <h5 class="m-b-10 m-t-4 m-l-4">Records Management</h5>
+                    <p class="m-b-0"></p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <ul class="breadcrumb">
+                    {% comment %} <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                    </li> {% endcomment %}
+                    <li class="breadcrumb-item">
+                        <a href="#" class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>Add New Company</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Hover table card start -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Records</h5>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="background-color:#5A72FE;">
+                                    <th></th>
+                                    <th style="color:white;">Request Type</th>
+                                    <th style="color:white;">EC Number</th>
+                                    <th style="color:white;">ID Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for company in companies %}
+                                    <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{{company.name}}</td>
+                                        <td>{{company.date_created}}</td>
+                                        <td><label class="label label-success">Active</label></td>
+                                    </tr>
+                                {% empty %}
+                                    <p>No company registered yet.</p>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Hover table card end -->
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
+<!-- Main-body end -->
+
+{% endblock body %}

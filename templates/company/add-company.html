@@ -1,0 +1,67 @@
+{% extends '../dashboard/base.html' %}
+{% block body %}
+<div class="page-header1">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <div class="page-header-title">
+                    <h5 class="m-b-10 m-t-4 m-l-4">Company Management</h5>
+                    <p class="m-b-0"></p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <ul class="breadcrumb">
+                    {% comment %} <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                    </li> {% endcomment %}
+                    <li class="breadcrumb-item">
+                        <button class="btn waves-effect waves-light btn-primary"><i class="icofont icofont-user-alt-3"></i>New Record</button>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <button class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>Import Bulk Records</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    {% comment %} <div class="col-md-1"></div> {% endcomment %}
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Add New Company</h5>
+                            </div>
+                            <div class="card-block">
+                                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                                    <div class="form-group row">
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-6">
+                                            <label class="float-label">Enter Company Name <span style="color:red;">*</span></label>
+                                            {{form.name}}
+                                        </div>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Add Company</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <div class="col-md-1"></div> {% endcomment %}
+                </div>
+            </div>
+            <!-- Page body end -->
+        </div>
+    </div>
+    <!-- Main-body end -->
+</div>
+{% endblock body %}
