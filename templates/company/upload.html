@@ -1,0 +1,22 @@
+{% extends '../dashboard/base.html' %}
+{% block body %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>File Upload</h5>
+            </div>
+            <div class="card-body">
+                <form action="../assets/plugins/fileupload/js/file-upload.php" class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
+            <div class="text-center m-t-20">
+                <button class="btn btn-primary">Upload Now</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

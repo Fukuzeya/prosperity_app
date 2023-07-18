@@ -4,6 +4,20 @@ import re
 from Record.models import Record
 
 
+class UploadForm(forms.ModelForm):
+    file = forms.FileInput()
+    deduction_code = forms.Select()
+    class Meta:
+        model = Record
+        fields = ("deduction_code",)
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['deduction_code'].widget.attrs.update(
+            {'class': 'form-control form-control-lg'})
+        # self.fields['file'].widget.attrs.update(
+        #     {'class': 'form-control form-control-lg'})
+
 class RecordForm(forms.ModelForm):
     deduction_code = forms.Select()
     request_type = forms.Select()
@@ -12,7 +26,7 @@ class RecordForm(forms.ModelForm):
     transaction_refence = forms.CharField(max_length=20)
     deductions_start_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     deductions_end_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
-    installment_amount = forms.IntegerField(default=0)
+    installment_amount = forms.IntegerField()
     class Meta:
         model = Record
         fields = ['deduction_code', 'request_type','ec_number','id_number',

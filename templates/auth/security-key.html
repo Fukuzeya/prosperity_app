@@ -1,0 +1,92 @@
+{% extends '../dashboard/base.html' %}
+{% block body %}
+<div class="page-header1">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <div class="page-header-title">
+                    <h5 class="m-b-10 m-t-4 m-l-4">Security Key Information</h5>
+                    <p class="m-b-0"></p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <ul class="breadcrumb">
+                    {% comment %} <li class="breadcrumb-item">
+                        <a href="index.html"> <i class="fa fa-home"></i> </a>
+                    </li> {% endcomment %}
+                    <li class="breadcrumb-item">
+                        <button class="btn waves-effect waves-light btn-primary"><i class="icofont icofont-user-alt-3"></i>New Record</button>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <button class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>Import Bulk Records</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    {% comment %} <div class="col-md-1"></div> {% endcomment %}
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Security Key Information</h5>
+                            </div>
+                            
+                            
+
+                            <div class="card-block">
+                                {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                    {% endif %}
+                                    {% if message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                          {% endif %}
+                                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                                    
+                                    
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Enter Current Password</label>
+                                        <div class="col-sm-6">
+                                            <input type="password" name="current_password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Enter Security Key</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="security_key" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Confirm Security Key</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="security_key_confirm" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <button class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page body end -->
+        </div>
+    </div>
+    <!-- Main-body end -->
+</div>
+{% endblock body %}

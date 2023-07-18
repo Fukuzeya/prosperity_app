@@ -41,30 +41,52 @@
 						<h3 style="text-align:center;">Welcome To Prosperity Partners</h3>
 						<hr>
 						<br>
+						{% if form.errors %}
+							<p style="text-align:center;" class="alert alert-danger">Incorrect Username and or Password.</p>
+							{% for field in form %}
+								{% if field.errors %}
+									<div style="text-align:center;" data-from="top" data-icon="fa fa-comments" data-align="center" class="alert alert-danger" role="alert">
+										{{ field.errors|striptags }}
+									</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						{% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                    <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                                    {% endif %}
+                                    {% if message.tags == 'success' %}
+                                    <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                        {% endif %}
 						{% comment %} <img src="{% static 'login/images/logo-dark.png' %}" alt="" class="img-fluid mb-4"> {% endcomment %}
 						<h4 class="mb-3 f-w-400">Login into your account</h4>
-						<div class="input-group mb-2">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="feather icon-user"></i></span>
+						<form method="post">{% csrf_token %}
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="feather icon-user"></i></span>
+								</div>
+								{{form.username}}
 							</div>
-							<input type="email" class="form-control" placeholder="Username">
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="feather icon-lock"></i></span>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="feather icon-lock"></i></span>
+								</div>
+								{{form.password}}
 							</div>
-							<input type="password" class="form-control" placeholder="Password">
-						</div>
-						
-						<div class="form-group text-left mt-2">
-							<div class="checkbox checkbox-primary d-inline">
-								<input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
-								<label for="checkbox-fill-a1" class="cr"> Save credentials</label>
+							
+							<div class="form-group text-left mt-2">
+								<div class="checkbox checkbox-primary d-inline">
+									<input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+									<label for="checkbox-fill-a1" class="cr"> Save credentials</label>
+								</div>
 							</div>
-						</div>
-						<button class="btn btn-primary mb-4">Login</button>
-						<p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
-						<p class="mb-0 text-muted">Don’t have an account? <a href="#" class="f-w-400">Signup</a></p>
+							<button type="submit" class="btn btn-primary mb-4">Login</button>
+							<p class="mb-2 text-muted">Forgot password? <a href="#" class="f-w-400">Reset</a></p>
+							<p class="mb-0 text-muted">Don’t have an account? <a href="#" class="f-w-400">Signup</a></p>
+						</form>
 					</div>
 				</div>
 				<div class="col-md-6 d-none d-md-block">

@@ -1,0 +1,53 @@
+/* your_app/static/your_app/css/upload_form.css */
+
+/* Center upload form */
+.upload-form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .upload-form {
+    max-width: 600px;
+    padding: 2rem;
+    background-color: #f2f2f2;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Style for upload input */
+  .custom-file-upload {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Style for upload button */
+  .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 0.25rem;
+  }
+  
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }

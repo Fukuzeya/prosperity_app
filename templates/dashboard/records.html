@@ -3,22 +3,66 @@
 
 {% block body %}
 <div class="page-header1">
-    <div class="page-block">
-        <div class="row align-items-center">
-            <div class="col-md-9">
-                <div class="page-header-title">
-                    <h5 class="m-b-10 m-t-4 m-l-4">Records Management</h5>
-                    <p class="m-b-0"></p>
+    <div class="row">
+        <div class="col">
+            <div class="card task-board-left">
+                {% comment %} <div class="card-header">
+                    <h5>Search Box</h5>
+                </div> {% endcomment %}
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control add_task_todo" placeholder="Search here..." required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-icon btn-msg-send" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
+        </div>
+    </div>
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-2">
+                
+            </div>
+            <div class="col-md-10">
                 <ul class="breadcrumb">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <select name="status" id="type-status" class="form-control">
+                                <option value="0" disabled selected>Choose Status</option>
+                                <option value="CANCELED">CANCELED</option>
+                                <option value="DRAFT">DRAFT</option>
+                                <option value="FAILED">FAILED</option>
+                                <option value="PROCESSED">PROCESSED</option>
+                                <option value="PROCESSING">PROCESSING</option>
+                                <option value="SUCCESS">SUCCESS</option>
+                                <option value="SENT">SENT</option>
+                                <option value="SAVED">SAVED</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select name="type" class="form-control" id="type-select">
+                                <option value="0" selected disabled>Choose Type</option>
+                                <option value="NEW">NEW</option>
+                                <option value="CHANGE">CHANGE</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                    <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Choose Option">
+                        <a href="#" type="button" class="btn waves-effect waves-light btn-inverse"><i class="icofont icofont-exchange"></i>Download List</a>
+                        <a href="{% url 'batch:batches' %}" type="button" class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>View Batches</a>
+                        <a href="{% url 'record:new_record' %}" type="button" class="btn waves-effect waves-light btn-primary"><i class="icofont icofont-user-alt-3"></i>New Record</a>
+                    </div>
                     {% comment %} <li class="breadcrumb-item">
-                        <a href="index.html"> <i class="fa fa-home"></i> </a>
-                    </li> {% endcomment %}
-                    <li class="breadcrumb-item">
-                        <a href="#" class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>Add New Company</a>
+                        <a href="#" class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>View Batches</a>
                     </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'record:new_record' %}" class="btn waves-effect waves-light btn-primary"><i class="icofont icofont-user-alt-3"></i>New Record</a>
+                    </li> {% endcomment %}
                 </ul>
             </div>
         </div>
@@ -32,7 +76,7 @@
             <!-- Hover table card start -->
             <div class="card">
                 <div class="card-header">
-                    <h5>Records</h5>
+                    <h5>Deduction Requests</h5>
                     <div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -49,21 +93,33 @@
                             <thead>
                                 <tr style="background-color:#5A72FE;">
                                     <th></th>
-                                    <th style="color:white;">Request Type</th>
-                                    <th style="color:white;">EC Number</th>
+                                    <th style="color:white;">Record ID</th>
+                                    <th style="color:white;">Reference</th>
+                                    {% comment %} <th style="color:white;">Code</th> {% endcomment %}
+                                    <th style="color:white;">Type</th>
+                                    <th style="color:white;">Status</th>
                                     <th style="color:white;">ID Number</th>
+                                    <th style="color:white;">EC Number</th>
+                                    <th style="color:white;">Amount</th>
+                                    <th style="color:white;">Date Created</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for company in companies %}
+                                {% for record in records %}
                                     <tr>
                                         <th scope="row">{{forloop.counter}}</th>
-                                        <td>{{company.name}}</td>
-                                        <td>{{company.date_created}}</td>
-                                        <td><label class="label label-success">Active</label></td>
+                                        <td><a style="color:blue;" href="{% url 'record:record_detail' record.record_id %}">{{record.record_id}}</a></td>
+                                        <td>{{record.transaction_refence}}</td>
+                                        {% comment %} <td>{{record.code}}</td> {% endcomment %}
+                                        <td>{{record.request_type}}</td>
+                                        <td><label class="label label-info">{{record.status}}</label></td>
+                                        <td>{{record.id_number}}</td>
+                                        <td>{{record.ec_number}}</td>
+                                        <td>{{record.installment_amount}}</td>
+                                        <td>{{record.date_created | timesince}} ago</td>
                                     </tr>
                                 {% empty %}
-                                    <p>No company registered yet.</p>
+                                    <p>No record available.</p>
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -76,5 +132,42 @@
     </div>
 </div>
 <!-- Main-body end -->
+<script>
+    const dropdown = document.querySelector('#type-status');
+  
+    dropdown.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search_status' %}?type=${selectedOption}`;
+    });
+
+    const dropdown2 = document.querySelector('#type-select');
+  
+    dropdown2.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search' %}?type=${selectedOption}`;
+    });
+  </script>
+
+<script>
+    const dropdown = document.querySelector('#type-select');
+  
+    dropdown.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search' %}?type=${selectedOption}`;
+    });
+  </script>
+
+
+  
+  
 
 {% endblock body %}

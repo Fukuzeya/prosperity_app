@@ -1,0 +1,21 @@
+<!-- your_app/templates/admin/upload_excel.html -->
+
+{% comment %} {% extends "admin/base_site.html" %} {% endcomment %}
+{% load static %}
+
+{% block extrahead %}
+  <link rel="stylesheet" type="text/css" href="{% static 'batch/css/upload_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="upload-form-container">
+  <form method="post" enctype="multipart/form-data" class="upload-form">
+    {% csrf_token %}
+    <label for="excel_file" class="custom-file-upload">
+      Choose Excel File
+      <input type="file" name="excel_file" id="excel_file">
+    </label>
+    <button type="submit" class="btn btn-primary mt-3">Upload</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends '../dashboard/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="page-header1">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-10">
+                {% comment %} <h4>Twilight</h4> {% endcomment %}
+            </div>
+            <div class="col-md-2">
+                <ul class="breadcrumb">
+                    <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add User">
+                        <a href="{% url 'accounts:create_account' %}" type="button" class="btn waves-effect waves-light btn-primary"><i class="icofont icofont-user-alt-3"></i>New User</a>
+                    </div>
+                    {% comment %} <li class="breadcrumb-item">
+                        <a href="#" class="btn waves-effect waves-light btn-success"><i class="icofont icofont-check-circled"></i>View Batches</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'record:new_record' %}" class="btn waves-effect waves-light btn-primary"><i class="icofont icofont-user-alt-3"></i>New Record</a>
+                    </li> {% endcomment %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Hover table card start -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Registered Users</h5>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="background-color:#5A72FE;">
+                                    <th></th>
+                                    <th style="color:white;">First Name</th>
+                                    <th style="color:white;">Last Name</th>
+                                    <th style="color:white;">Username</th>
+                                    <th style="color:white;">Last Login</th>
+                                    <th style="color:white;">Status</th>
+                                    {% comment %} <th style="color:white;">Creator</th> {% endcomment %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td>{{user.first_name}}</td>
+                                        <td>{{user.last_name}}</td>
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.last_login}}</td>
+                                        <td>{{user.status}}</td>
+                                    </tr>
+                                {% empty %}
+                                    <p>No user available.</p>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Hover table card end -->
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
+<!-- Main-body end -->
+<script>
+    const dropdown = document.querySelector('#type-status');
+  
+    dropdown.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search_status' %}?type=${selectedOption}`;
+    });
+
+    const dropdown2 = document.querySelector('#type-select');
+  
+    dropdown2.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search' %}?type=${selectedOption}`;
+    });
+  </script>
+
+<script>
+    const dropdown = document.querySelector('#type-select');
+  
+    dropdown.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search' %}?type=${selectedOption}`;
+    });
+  </script>
+
+
+  
+  
+
+{% endblock body %}

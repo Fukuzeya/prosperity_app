@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-m0s&i_6&kcp39hv53*g$=64e6#ppb&efdxm!krv!l7_#q%w&a$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -21,11 +21,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     #custom apps
     'Accounts',
     'Batch',
     'Company',
     'Record',
+    'Response',
+    
+    #Third party apps
+    'django_excel',
 
 ]
 
@@ -38,6 +43,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler",
+                        "django_excel.TemporaryExcelFileUploadHandler")
 
 ROOT_URLCONF = 'ProsperityPartners.urls'
 
@@ -63,10 +71,19 @@ WSGI_APPLICATION = 'ProsperityPartners.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'prosperity_db',
+#         'USER': 'postgres',
+#         'PASSWORD': '12345',
 #     }
 # }
 
@@ -106,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Harare'
 
 USE_I18N = True
 
@@ -118,9 +135,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-# LOGIN_REDIRECT_URL = 'accounts:profile'
-# LOGIN_URL = 'accounts:login'
-# LOGOUT_URL ='accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:profile'
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL ='accounts:login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,0 +1,155 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="page-header1">
+    <div class="page-block">
+        <div class="row align-items-center">
+            {% comment %} <div class="col-md-2">
+                {% comment %} <h4>Twilight</h4>
+            </div> {% endcomment %}
+            <div class="col-md-6">
+                <ul class="breadcrumb">
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            <select name="type" class="form-control" id="type-batch">
+                                <option value="0" selected disabled>Batch Status</option>
+                                <option value="CANCELED">CANCELED</option>
+                                <option value="DRAFT">DRAFT</option>
+                                <option value="FAILED">FAILED</option>
+                                <option value="PROCESSED">PROCESSED</option>
+                                <option value="PROCESSING">PROCESSING</option>
+                                <option value="SUCCESS">SUCCESS</option>
+                                <option value="SENT">SENT</option>
+                                <option value="SAVED">SAVED</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select name="status" id="type-status" class="form-control">
+                                <option value="0" disabled selected>Deduction Code</option>
+                                <option value="CANCELED">CANCELED</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <select name="type" class="form-control" id="type-select">
+                                <option value="0" selected disabled>Creator</option>
+                                <option value="NEW">Brian Masasi</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <label>From Date</label>
+                <input class="form-control" type="date"/>
+            </div>
+            <div class="col-md-2">
+                <label>To Date</label>
+                <input class="form-control" type="date"/>
+            </div>
+            {% comment %} <div class="col-md-2">
+                </div>
+                    <button class="btn waves-effect waves-light btn-primary">Search</button>
+                </div>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Hover table card start -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Deduction Batches</h5>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                            <li><i class="fa fa-window-maximize full-card"></i></li>
+                            <li><i class="fa fa-minus minimize-card"></i></li>
+                            <li><i class="fa fa-refresh reload-card"></i></li>
+                            <li><i class="fa fa-trash close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="background-color:#5A72FE;">
+                                    <th></th>
+                                    <th style="color:white;">Batch ID</th>
+                                    <th style="color:white;">Status</th>
+                                    <th style="color:white;">Deduction Code</th>
+                                    <th style="color:white;">Records</th>
+                                    <th style="color:white;">Creation Date</th>
+                                    {% comment %} <th style="color:white;">Creator</th> {% endcomment %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for batch in batches %}
+                                    <tr>
+                                        <th scope="row">{{forloop.counter}}</th>
+                                        <td><a href="{% url 'batch:view_batch' batch.id %}">{{batch.batch_id}}</a></td>
+                                        <td><label class="label label-info">{{batch.status}}</label></td>
+                                        <td>{{batch.deduction_code}}</td>
+                                        <td>{{batch.batch_records.all | length}}</td>
+                                        <td>{{batch.date_created | timesince}} ago</td>
+                                    </tr>
+                                {% empty %}
+                                    <p>No response available.</p>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Hover table card end -->
+        </div>
+        <!-- Page body end -->
+    </div>
+</div>
+<!-- Main-body end -->
+<script>
+    const dropdown = document.querySelector('#type-status');
+  
+    dropdown.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search_status' %}?type=${selectedOption}`;
+    });
+
+    const dropdown2 = document.querySelector('#type-select');
+  
+    dropdown2.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search' %}?type=${selectedOption}`;
+    });
+  </script>
+
+<script>
+    const dropdown = document.querySelector('#type-select');
+  
+    dropdown.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      console.log(`Selected option: ${selectedOption}`);
+  
+      // Redirect the user to the search view with the selected option as a query parameter
+      window.location.href = `{% url 'record:search' %}?type=${selectedOption}`;
+    });
+  </script>
+
+
+  
+  
+
+{% endblock body %}

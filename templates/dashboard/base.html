@@ -22,9 +22,12 @@
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <!-- Required Fremwork -->
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'codedthemes.com_demos_admin-templates_flash-able_bootstrap_assets_css_pages_pages.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'codedthemes.com_demos_admin-templates_flash-able_bootstrap_assets_css_style.css' %}"> {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap/css/bootstrap.min.css' %}">
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'codedthemes.com_demos_admin-templates_flash-able_bootstrap_assets_css_pages_fileupload.css' %}"> {% endcomment %}
     <!-- waves.css -->
-    <link rel="stylesheet" href="{% static 'assets/pages/waves/css/waves.min.css" type="text/css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'assets/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/icon/themify-icons/themify-icons.css' %}">
     <!-- feather icon -->
@@ -37,6 +40,11 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/jquery.mCustomScrollbar.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome-n.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
 </head>
 
 <body>
@@ -112,8 +120,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="index.html">
-                            <img class="img-fluid" src="{% static 'assets/images/logo.png' %}" alt="Theme-Logo" />
+                        <a href="/">
+                            <h6>{{request.session.company}}</h6>
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -129,6 +137,7 @@
                                     <i class="ti-fullscreen"></i>
                                 </a>
                             </li>
+                            
                         </ul>
                         <ul class="nav-right">
                             <li class="header-notification">
@@ -159,7 +168,7 @@
                                     <span>John Doe</span>
                                     <i class="ti-angle-down"></i>
                                 </a> {% endcomment %}
-                                <span>Welcome: Brian Masase</span>
+                                <span style="color:white;">Welcome: {{request.user.first_name}} {{request.user.last_name}}</span>
                                 <i class="ti-angle-down"></i>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
@@ -202,7 +211,7 @@
                             <div class="pcoded-navigation-label">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="#" class="waves-effect waves-dark">
+                                    <a href="{% url 'company:dashboard' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
@@ -212,21 +221,21 @@
                             <div class="pcoded-navigation-label">Action</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="#" class="waves-effect waves-dark">
+                                    <a href="{% url 'record:records' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
                                         <span class="pcoded-mtext">View Records</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="#" class="waves-effect waves-dark">
+                                    <a href="{% url 'record:upload' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-id-badge"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Import Records</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="#" class="waves-effect waves-dark">
+                                    <a href="{% url 'batch:send_batch' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
                                         <span class="pcoded-mtext">Send Records</span>
                                         <span class="pcoded-mcaret"></span>
@@ -236,16 +245,30 @@
                             <div class="pcoded-navigation-label">Administration</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="{% url 'company:companies' %}" class="waves-effect waves-dark">
+                                    <a href="{% url 'response:responses' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-receipt"></i><b>D</b></span>
-                                        <span class="pcoded-mtext">Companies</span>
+                                        <span class="pcoded-mtext">Responses</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="{% url 'batch:codes' %}" class="waves-effect waves-dark">
+                                    <a href="#" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-id-badge"></i><b>D</b></span>
-                                        <span class="pcoded-mtext">Deduction Codes</span>
+                                        <span class="pcoded-mtext">Invoices</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-id-badge"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">Payments</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'accounts:view_accounts' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-id-badge"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">Users</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -272,6 +295,11 @@
     </div>
 
     <!-- Required Jquery -->
+    {% comment %} <script type="text/javascript" src="{% static 'codedthemes.com_cdn-cgi_scripts_5c5dd728_cloudflare-static_email-decode.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codedthemes.com_demos_admin-templates_flash-able_bootstrap_assets_js_menu-setting.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codedthemes.com_demos_admin-templates_flash-able_bootstrap_assets_js_pages_invoice-list.js' %}"></script>
+    <script type="text/javascript" src="{% static 'codedthemes.com_demos_admin-templates_flash-able_bootstrap_assets_plugins_fileupload_js_dropzone-amd-module.min.js' %}"></script> {% endcomment %}
+
     <script type="text/javascript" src="{% static 'assets/js/jquery/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'assets/js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'assets/js/popper.js/popper.min.js' %}"></script>
@@ -285,6 +313,20 @@
     <script src="{% static 'assets/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
     <!-- Custom js -->
     <script type="text/javascript" src="{% static 'assets/js/script.min.js' %}"></script>
+    <script>
+        // print button
+        function printData() {
+            var divToPrint = document.getElementById("printTable");
+            newWin = window.open("");
+            newWin.document.write(divToPrint.outerHTML);
+            newWin.print();
+            newWin.close();
+        }
+    
+        $('.btn-print-invoice').on('click', function() {
+            printData();
+        })
+    </script>
 </body>
 
 </html>
