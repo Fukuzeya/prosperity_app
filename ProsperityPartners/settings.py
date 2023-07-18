@@ -90,7 +90,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'prosperity_db',
         'USER': 'admin',
         'PASSWORD': 'fukuzeyasamson123',
         'HOST': '178.79.177.248',
